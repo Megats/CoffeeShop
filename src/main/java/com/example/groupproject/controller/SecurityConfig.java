@@ -40,7 +40,7 @@ public class SecurityConfig {
 
     private RequestMatcher createSecurityMatcher() {
         return new OrRequestMatcher(Arrays.asList(
-                new AntPathRequestMatcher("/index.html"),
+                new AntPathRequestMatcher("/index"),
                 new AntPathRequestMatcher("/login")
         ));
     }
