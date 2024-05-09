@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/login") // This should match the form action in your HTML
                                 .failureUrl("/login-error.html")
                                 .failureUrl("/login?error=true")
+                                .defaultSuccessUrl("/index", true) // Redirect to /index on successful login
                 );
         return http.build();
     }
