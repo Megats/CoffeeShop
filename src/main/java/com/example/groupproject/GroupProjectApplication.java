@@ -22,7 +22,7 @@ public class GroupProjectApplication {
     public ApplicationRunner initializeDatabaseConnection() {
         return args -> {
             try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/coffeeshop", "root", "root");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/coffeedb", "root", "Arsenal2001-");
                 if (connection != null) {
                     System.out.println("Connected to the database");
                     // Optionally, you can perform additional initialization here.
