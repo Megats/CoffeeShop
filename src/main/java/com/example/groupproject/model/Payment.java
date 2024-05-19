@@ -24,9 +24,9 @@ public class Payment {
     @Setter
     private String payment_status;
     private double payment_total;
-    @Setter
     private Date payment_date;
     private String payment_method;
+
 
     //constructor
     public Payment(int payment_id, int order_id, double total, String status, String payment_method) {
