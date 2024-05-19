@@ -9,24 +9,25 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
 
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <style>
         table {
@@ -77,13 +78,13 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
-
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="menu" class="nav-link">Product</a></li>
+                <li class="nav-item active"><a href="admin/home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
                 <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
                 <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
+                <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
             </ul>
         </div>
     </div>
@@ -94,22 +95,24 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-8 heading-section text-center ftco-animate">
-                <h2 class="mb-4">Add Product</h2>
+                <h2 class="mb-4">Edit Product</h2>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8 ftco-animate">
                 <div class="row">
-
-
-                    <form th:action="@{/product_add}" method="post" enctype="multipart/form-data">
-
-                        <table>
-                            <table>
+                    <form th:action="@{'/updateProduct'}" method="post" enctype="multipart/form-data">
+                        <table class="col-md-4 text-center">
+                                <tr>
+                                    <th><label for="product_image">Product ID:</label></th>
+                                    <td>
+                                        <input type="text" id="product_id" name="product_id" th:value="${product.getProduct_id()}">
+                                    </td>
+                                </tr>
                             <tr>
                                 <th><label for="product_image">Product Image:</label></th>
                                 <td>
-                                    <input type="file" id="product_image" name="product_image" onchange="previewImage(event)"><br><br>
+                                    <input type="file" id="product_image" name="product_image" th:value="${product.getProduct_image()}" onchange="previewImage(event)"><br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -122,24 +125,26 @@
                             </tr>
                             <tr>
                                 <th><label for="product_name">Product Name:</label></th>
-                                <td><input type="text" id="product_name" name="product_name"></td>
+                                <td><input type="text" id="product_name" th:value="${product.getProduct_name()}" name="product_name"></td>
                             </tr>
                             <tr>
                                 <th><label for="product_description">Product Description:</label></th>
-                                <td><textarea id="product_description" name="product_description" class="expanded-textarea"></textarea></td>
+                                <td>
+                                    <textarea id="product_description" name="product_description" class="expanded-textarea" th:text="${product.getProduct_description()}">
+                                    </textarea>
+                                </td>
                             </tr>
-                            <tr>
                                 <th><label for="product_price">Product Price (RM):</label></th>
-                                <td><input type="number" id="product_price" name="product_price" step="0.01" style="width: 100px;"></td>
+                                <td><input type="number" id="product_price" th:value="${product.getProduct_price()}" name="product_price" step="0.01" style="width: 100px;"></td>
                             </tr>
                             <tr>
                                 <th><label for="product_quantity">Product Quantity:</label></th>
-                                <td><input type="number" id="product_quantity" name="product_quantity" style="width: 100px;"></td>
+                                <td><input type="number" id="product_quantity" th:value="${product.getProduct_quantity()}" name="product_quantity" style="width: 100px;"></td>
                             </tr>
                             <tr>
                                 <th><label for="product_category" >Product Category:</label></th>
                                 <td>
-                                    <select id="product_category" name="product_category">
+                                    <select id="product_category" name="product_category" th:value="${product.getProduct_category()}">
                                         <option value="Main Dish">Main Dish</option>
                                         <option value="Cold Drinks">Cold Drinks</option>
                                         <option value="Hot Drinks">Hot Drinks</option>
@@ -150,7 +155,7 @@
                         </table>
                         <br>
                         <div style="text-align: center;">
-                            <input type="submit" value="Add Product" style="width: 150px;">
+                            <input type="submit" value="Update Product" style="width: 150px;">
                         </div>
                     </form>
 </section>

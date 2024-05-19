@@ -39,6 +39,10 @@
             border-bottom: 1px solid #ddd;
             color: white;
         }
+        .table thead th {
+            background-color: #F8C471; /* Set the background color to #F8C471 */
+            color: black; /* Set the text color to white */
+        }
 
         .expanded-textarea {
             width: 600px; /* Set the width to 100% to expand to the full width of the container */
@@ -107,22 +111,21 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light navbar-with-background" id="ftco-navbar">
+
     <div class="container">
         <div class="col-md-7 heading-section text-center ftco-animate">
-            <span class="subheading">Administrator</span>
-            <h2 class="mb-4">Administrator</h2>
+            <a class="navbar-brand" href="index.html">Cafe<small>Kita</small></a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
+                <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="menu" class="nav-link">Product</a></li>
                 <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
                 <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
-                <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
             </ul>
         </div>
     </div>
@@ -134,20 +137,13 @@
         <div class="row justify-content-center">
             <div class="col-md-12 ftco-animate">
                 <h2 class="text-center mb-4">List Product</h2>
-                <select id="categoryFilter" onchange="filterProducts()">
-                    <option value="">Choose Category</option>
-                    <option value="Main Dish" th:if="${products != null}">
-                        Main Dish
-                    </option>
-                    <option value="Cold Drinks">Cold Drinks</option>
-                    <option value="Hot Drinks">Hot Drinks</option>
-                    <option value="Desserts">Desserts</option>
-                </select>
-
-<!--                <input id="txtSearch" type="text" name="keyword">-->
-
-
-
+<!--                <select id="categoryFilter" onchange="filterProducts()">-->
+<!--                    <option value="">Choose Category</option>-->
+<!--                    <option value="Main Dish">Main Dish</option>-->
+<!--                    <option value="Cold Drinks">Cold Drinks</option>-->
+<!--                    <option value="Hot Drinks">Hot Drinks</option>-->
+<!--                    <option value="Desserts">Desserts</option>-->
+<!--                </select>-->
 
                 <a href="product_add" class="btn btn-primary btn-add-product">Add New Product</a>
 
@@ -159,7 +155,6 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Price</th>
-                        <th>Quantity</th>
                         <th>Category</th>
                         <th>Action</th>
                     </tr>
@@ -167,21 +162,15 @@
                     <tbody id="productTable">
                     <input type="hidden" id="myValue" th:value="${products.size()}" />
 
-                    <tr th:each="product:${products}" class="col-md-4 text-center" data-product-id="${product.product_id}">
+                    <tr th:each="product:${products}" class="col-md-4 text-center" data-product-id="${product.product_id}" data-category="${product.product_category}">
 
                     <td th:text="${product.product_id}"></td>
                         <td>
-<!--                            <img th:style="'background-image: url(\'/images/dish-1.jpg\');'">-->
-                            <!-- Debugging output -->
-                            <a href="#" class="menu-img img mb-4" th:style="'background-image: url(' + ${product.product_image_url} + ');'"></a>
-
-                            <!--                            <a href="#" class="menu-img img mb-4" th:style="'background-image: url(\'/images/dish-1.jpg\')'"></a>-->
-
+                            <img th:src="${product.product_image}" th:alt="${product.product_name}" style="max-width: 300px; height: 300px;" />
                         </td>
                         <td th:text="${product.product_name}"></td>
                         <td th:text="${product.product_description}"></td>
                         <td th:text="RM +${product.product_price}"></td>
-                        <td th:text="${product.product_quantity}"></td>
                         <td th:text="${product.product_category}"></td>
                         <td>
                             <a th:href="@{'product_edit/' + ${product.product_id}}" class="btn btn-warning-custom btn-custom-width btn-sm margin-bottom-10">Edit</a>
@@ -193,9 +182,11 @@
 
                             <script th:inline="javascript">
                                 function confirmDelete(productName) {
+                                    console.log("Received product name:", productName); // Debugging statement
                                     var confirmation = confirm("Are you sure you want to delete " + productName + "?");
                                     return confirmation;
                                 }
+
                             </script>
 
                         </td>
@@ -273,36 +264,28 @@
     //         });
     //     }
     // }
-
-
     function filterProducts() {
-        // Get the selected category from the dropdown menu
         var category = document.getElementById("categoryFilter").value;
-        console.log(category);
-        // Get all the rows in the product table
-        var myValue = document.getElementById('myValue').value;
-        console.log("Number of row is " + myValue)
-        // Check the size (length) of the rows NodeList
-        // var rowsSize = rows.length;
-        // console.log("Number of rows: " + rowsSize);
-        for (var i = 0; i < myValue; i++) {
-            var rows = document.querySelectorAll("#productTable tbody tr");
-            // Check if the selected category matches the current product's category
-            if (category === "Main Dish") { // Use === for comparison, not .equals()
-                // If it matches, display the row
-                console.log("Display main dish")
-                rows.style.display = "table-row";
-            } else if (category === "Cold Drinks") {
-                console.log("Display cold drinks")
-            } else if (category === "Hot Drinks") {
-                console.log("Display hot drinks")
-            } else if (category === "Desserts") {
-                console.log("Display desserts")
+        console.log("Selected Category: " + category);
+        var rows = document.querySelectorAll("#productTable tr");
+
+        rows.forEach(function(row) {
+            var rowCategory = row.getAttribute("data-category");
+            console.log("Row Category: " + rowCategory);
+            if (category === "" || category === rowCategory) {
+                row.style.display = "";
             } else {
-                // If it doesn't match, hide the row
-                rows.style.display = "none";
+                row.style.display = "none";
             }
-        }
+        });
+    }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var rowCount = document.querySelectorAll("#productTable tbody tr").length;
+            document.getElementById("myValue").value = rowCount;
+        });
+
 
 
 

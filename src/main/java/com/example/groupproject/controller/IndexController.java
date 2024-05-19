@@ -19,4 +19,20 @@ public class IndexController {
         return "index"; // This will return the name of your HTML template (e.g., example.html)
     }
 
+    @GetMapping("/admin/home_admin")
+    public String admin(Model model) {
+        String message = "Hello from the controller!";
+        model.addAttribute("message", message);
+        return "home";
+    }
+
+    @GetMapping("/admin/home")
+    public String order(Model model) {
+        String message = "Hello from the controller!";
+        model.addAttribute("message", message);
+        return "/admin/home";
+    }
+
+
+
 }

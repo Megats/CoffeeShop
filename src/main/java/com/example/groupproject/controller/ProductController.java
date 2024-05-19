@@ -95,10 +95,8 @@ public class ProductController{
             }
         }
         else {
-            String fileName = "";
-            Product product = new Product(fileName,productId,productName,productDescription,productPrice,productCategory,productQuantity);
-            updateProductFromDatabase(product);
-
+            Product product = new Product(productId,productName,productDescription,productPrice,productCategory,productQuantity);
+            updateProduct(product);
         }
         return "redirect:/admin/product_list?success=true";
     }
@@ -117,8 +115,7 @@ public class ProductController{
     }
 
     @PostMapping("/product_add")
-    public String addProduct(@RequestParam("product_id") int productId,
-                             @RequestParam("product_image") MultipartFile productImage,
+    public String addProduct(@RequestParam("product_image") MultipartFile productImage,
                              @RequestParam("product_name") String productName,
                              @RequestParam("product_description") String productDescription,
                              @RequestParam("product_price") double productPrice,
@@ -140,16 +137,15 @@ public class ProductController{
 
             // Insert product into the database
             try (Connection connection = DriverManager.getConnection(DatabaseConfig.JDBC_URL, DatabaseConfig.USERNAME, DatabaseConfig.PASSWORD)) {
-                String sql = "INSERT INTO product (product_id, product_image, product_name, product_description, product_price, product_quantity, product_category) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO product (product_image, product_name, product_description, product_price, product_quantity, product_category) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setInt(1, productId);
-                    preparedStatement.setString(2, fileName); // Save file name instead of path
-                    preparedStatement.setString(3, productName);
-                    preparedStatement.setString(4, productDescription);
-                    preparedStatement.setDouble(5, productPrice);
-                    preparedStatement.setInt(6, productQuantity);
-                    preparedStatement.setString(7, productCategory);
+                    preparedStatement.setString(1, fileName); // Save file name instead of path
+                    preparedStatement.setString(2, productName);
+                    preparedStatement.setString(3, productDescription);
+                    preparedStatement.setDouble(4, productPrice);
+                    preparedStatement.setInt(5, productQuantity);
+                    preparedStatement.setString(6, productCategory);
                     preparedStatement.executeUpdate();
 
                     System.out.println("Product added successfully"); // Added print statement
@@ -403,6 +399,66 @@ public class ProductController{
         }
 
     }
+
+    private void updateProduct(Product product) throws SQLException {
+        // Replace with your connection details
+        String jdbcUrl = DatabaseConfig.JDBC_URL;
+        String username = DatabaseConfig.USERNAME;
+        String password = DatabaseConfig.PASSWORD;
+
+        // Database table and column names (replace as needed)
+        String tableName = "product";
+        String idColumn = "product_id";
+        String productName= "product_name";
+        String productDesc = "product_description";
+        String productPrice = "product_price";
+        String productCat = "product_category";
+        String productQty = "product_quantity";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // Connect to MariaDB
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+            // Prepare SQL statement with placeholders
+            String sql = "UPDATE " + tableName + " SET " + productName + " = ?," + productDesc + " = ?," + productPrice + " = ?," + productCat + " = ?," + productQty + " = ?" +
+                    " WHERE " + idColumn + " = ?";
+            statement = connection.prepareStatement(sql);
+
+            // Set values for placeholders
+            statement.setString(1, product.getProduct_name());
+            statement.setString(2, product.getProduct_description());
+            statement.setDouble(3, product.getProduct_price());
+            statement.setString(4, product.getProduct_category());
+            statement.setInt(5, product.getProduct_quantity());
+            statement.setInt(6, product.getProduct_id());
+
+            // Execute the UPDATE statement
+            int rowsAffected = statement.executeUpdate();
+
+            // Check if any rows were updated
+            if (rowsAffected > 0) {
+                System.out.println("Record updated successfully!");
+            } else {
+                System.out.println("No records updated!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources (statement, connection)
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+    }
+
 
     // Method to update table cart
     private void insertCart(int id, double product_price){
