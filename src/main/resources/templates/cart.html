@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>Coffee - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Cart</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -27,12 +29,9 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-  </head>
-  <style>
-	  div.tengah{
 
-	  }
-  </style>
+  </head>
+
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	  <div class="container">
@@ -70,11 +69,12 @@
         </div>
       </div>
     </section>
-		
+
 		<section class="ftco-section ftco-cart">
 			<div class="container">
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
+
     				<div class="cart-list">
 	    				<table class="table">
 						    <thead class="thead-primary">
@@ -87,78 +87,86 @@
 						        <th>Total</th>
 						      </tr>
 						    </thead>
-						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/menu-2.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Creamy Latte Coffee</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-						        
-						        <td class="price">$4.90</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$4.90</td>
-						      </tr><!-- END TR-->
 
-						      <tr class="text-center">
+						    <tbody >
+
+						      <tr th:each="cart, status : ${carts}" class="text-center">
 						        <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/dish-2.jpg);"></div></td>
+						        <td class="image-prod"><div class="img" th:style="'background-image: url(\'' + ${#strings.replace(products[status.index].product_image, ' ', '%20')} + '\')'"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3>Grilled Ribs Beesssf</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        	<h3 th:text="${products[status.index].product_name}">Product name</h3>
 						        </td>
 						        
-						        <td class="price">$15.70</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$15.70</td>
-						      </tr><!-- END TR-->
-						    </tbody>
+						        <td th:text="${products[status.index].product_price}" class="price">$4.90</td>
+								  <form th:action="@{/cart}" method="post">
+								  <td class="quantity">
+									  <div class="input-group mb-3">
+										  <input type="hidden" th:value="${cart.cart_id}" name="cart_id">
+										  <input type="hidden" th:value="${cart.product_id}" name="product_id">
+										  <input type="hidden" th:value="${products[status.index].product_price}" name="product_price">
+										  <input type="text" th:value="${cart.cart_quantity}" name="cart_quantities" class="quantity form-control input-number" min="1" max="100">
+
+										  <div class="input-group-prepend">
+											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} - 1" style="width: 50px" class="btn btn-outline-secondary decrease-quantity btn-lg">-</button>
+										  </div>
+
+										  <div class="input-group-append">
+											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} + 1"  style="width: 50px" class="btn btn-outline-secondary increase-quantity btn-lg">+</button>
+										  </div>
+									  </div>
+								  </td>
+								  </form>
+								  <td th:text="'$' + (${products[status.index].product_price * cart.cart_quantity})" class="total">price</td>
+							  </tr >
+
+							</tbody>
+
+
 						  </table>
 					  </div>
+
     			</div>
     		</div>
-    		<div class="row justify-content-end">
-    			<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
-    				<div class="cart-total mb-3">
-    					<h3>Cart Totals</h3>
-    					<p class="d-flex">
-    						<span>Subtotal</span>
-    						<span>$20.60</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Delivery</span>
-    						<span>$0.00</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Discount</span>
-    						<span>$3.00</span>
-    					</p>
-    					<hr>
-    					<p class="d-flex total-price">
-    						<span>Total</span>
-    						<span>$17.60</span>
-    					</p>
-    				</div>
-    				<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-    			</div>
-    		</div>
+
+				<div  class="row justify-content-end">
+						<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+							<div class="cart-total mb-3">
+								<h3>Cart Totals</h3>
+								<p class="d-flex">
+									<span>Subtotal</span>
+									<span id="subtotal">$20.60</span>
+								</p>
+								<p class="d-flex">
+									<span>Delivery</span>
+									<span id="delivery">$0.00</span>
+								</p>
+								<p class="d-flex">
+									<span>Discount</span>
+									<span id="discount">$3.00</span>
+								</p>
+								<hr>
+								<p class="d-flex total-price">
+									<span>Total</span>
+									<span id="total">$17.60</span>
+								</p>
+							</div>
+							<div th:with="quantity=${0}">
+								<form th:action="@{/add_order}" method="post">
+									<div th:each="cart : ${carts}">
+										<input type="hidden" th:value="${cart.user_id}" name="user_id">
+										<input type="hidden" th:value="${cart.cart_id}" name="cart_id">
+										<input type="hidden" th:value="${cart.cart_total}" name="order_total">
+										<input type="hidden" th:value="${cart.cart_quantity}" name="order_quantity">
+									</div>
+									<p class="text-center"><input type="submit" class="btn btn-primary py-3 px-4" value="Proceed to checkout"></p>
+								</form>
+							</div>
+
+					</div>
+				</div>
+
 			</div>
 		</section>
 
@@ -168,6 +176,7 @@
           <div class="col-md-7 heading-section ftco-animate text-center">
           	<span class="subheading">Discover</span>
             <h2 class="mb-4">Related products</h2>
+
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           </div>
         </div>
@@ -302,7 +311,7 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -320,7 +329,85 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script>
+	  $(document).ready(function() {
+		  function calculateTotals() {
+			  var subtotal = 0;
+			  var delivery = 0; // You can set a fixed delivery charge or calculate it based on some criteria
+			  var discount = 0; // You can set a fixed discount or calculate it based on some criteria
 
-    
+			  $('.total').each(function() {
+				  var total = parseFloat($(this).text().replace('$', ''));
+				  subtotal += total;
+			  });
+
+			  var grandTotal = subtotal + delivery - discount;
+
+			  $('#subtotal').text('$' + subtotal.toFixed(2));
+			  $('#delivery').text('$' + delivery.toFixed(2));
+			  $('#discount').text('$' + discount.toFixed(2));
+			  $('#total').text('$' + grandTotal.toFixed(2));
+		  }
+
+		  $('.decrease-quantity').click(function() {
+			  var quantityInput = $(this).closest('.input-group').find('.input-number');
+			  var quantity = parseInt(quantityInput.val());
+			  if (quantity > 1) {
+				  var newQuantity = quantity - 1;
+				  quantityInput.val(newQuantity);
+				  updateTotal(quantityInput);
+				  calculateTotals();
+				  var cartId = quantityInput.closest('tr').find('[data-cart-id]').data('cart-id');
+				  updateCartQuantity(cartId, newQuantity);
+			  }
+		  });
+
+		  $('.increase-quantity').click(function() {
+			  var quantityInput = $(this).closest('.input-group').find('.input-number');
+			  var quantity = parseInt(quantityInput.val());
+			  var newQuantity = quantity + 1;
+			  quantityInput.val(newQuantity);
+			  updateTotal(quantityInput);
+			  calculateTotals();
+			  var cartId = quantityInput.closest('tr').find('[data-cart-id]').data('cart-id');
+			  updateCartQuantity(cartId, newQuantity);
+			  console.log(cartId)
+		  });
+
+		  function updateCartQuantity(cartId, newQuantity) {
+			  $.ajax({
+
+				  url: '/cart/' + cartId + '/update-quantity',
+				  type: 'PUT',
+				  data: JSON.stringify(newQuantity),
+				  contentType: 'application/json',
+				  success: function(data) {
+					  console.log('Cart quantity updated successfully');
+					  // You can perform additional actions here if needed
+				  },
+				  error: function(xhr, status, error) {
+					  console.error('Error updating cart quantity:', error);
+				  }
+			  });
+		  }
+
+
+		  function updateTotal(quantityInput) {
+			  var quantity = parseInt(quantityInput.val());
+			  var price = parseFloat(quantityInput.closest('tr').find('.price').text().replace('$', ''));
+			  var total = (quantity * price).toFixed(2);
+			  quantityInput.closest('tr').find('.total').text('$' + total);
+		  }
+
+		  calculateTotals();
+
+	  });
+
+  </script>
+
+
+
+
+
   </body>
 </html>
