@@ -9,6 +9,7 @@ public class Product {
     private double product_price;
     private String product_category;
     private int product_quantity;
+    private String product_image_url;
 
 
     //constructor
@@ -79,6 +80,14 @@ public class Product {
 
     public void setProduct_quantity(int product_quantity) {
         this.product_quantity = product_quantity;
+    }
+
+    public String getProduct_image_url() {
+        return product_image_url;
+    }
+
+    public void setProduct_image_url(String product_image_url) {
+        this.product_image_url = product_image_url;
     }
 
 }
