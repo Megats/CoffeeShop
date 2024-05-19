@@ -29,99 +29,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
-
-    .row {
-        display: -ms-flexbox; /* IE10 */
-        display: flex;
-        -ms-flex-wrap: wrap; /* IE10 */
-        flex-wrap: wrap;
-        margin: 0 -16px;
+    .limited-width {
+        max-width: 1000px; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the table horizontally */
     }
-
-    .col-25 {
-        -ms-flex: 25%; /* IE10 */
-        flex: 25%;
-    }
-
-    .col-50 {
-        -ms-flex: 50%; /* IE10 */
-        flex: 50%;
-    }
-
-    .col-75 {
-        -ms-flex: 75%; /* IE10 */
-        flex: 75%;
-    }
-
-    .col-25,
-    .col-50,
-    .col-75 {
-        padding: 0 16px;
-    }
-
-    input[type=text] {
-        width: 100%;
-        margin-bottom: 20px;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
-
-    label {
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .icon-container {
-        margin-bottom: 20px;
-        padding: 7px 0;
-        font-size: 24px;
-    }
-
-    .btn {
-        background-color: #04AA6D;
-        color: white;
-        padding: 12px;
-        margin: 10px 0;
-        border: none;
-        width: 100%;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 17px;
-    }
-
-    .btn:hover {
-        background-color: #45a049;
-    }
-
-    a {
-        color: #2196F3;
-    }
-
-    hr {
-        border: 1px solid lightgrey;
-    }
-
-    span.price {
-        float: right;
-        color: grey;
-    }
-
-    /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-    @media (max-width: 800px) {
-        .row {
-            flex-direction: column-reverse;
-        }
-        .col-25 {
-            margin-bottom: 20px;
-        }
-    }
-    table, th, td {
-        background-color: white; // Sets to 50% transparent;
-        text-align: center;
-    }
-
 </style>
+
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
@@ -159,38 +73,45 @@
 </section>
 
 <section class="ftco-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-8 ftco-animate">
-                <h3>List of payments</h3>
-
-            <table th:if="${payments} != null" class="table align-middle mb-0 bg-white">
-                <thead class="bg-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Order Id</th>
-                    <th>Payment Total</th>
-                    <th>Payment Status</th>
-<!--                    <th>Actions</th>-->
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="payment : ${payments}">
-                    <td class="fw-normal mb-1" th:text="${payment.payment_id}"></td>
-                    <td class="fw-normal mb-1" th:text="${payment.order_id}"></td>
-                    <td class="fw-normal mb-1" th:text="${payment.payment_total}"></td>
-                    <td>
+    <h3 style="text-align: center">List of payments</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover limited-width">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Order ID</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th class="fixed-width">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="payment : ${payments}">
+                <td class="fw-normal mb-1" th:text="${payment.payment_id}"></td>
+                <td class="fw-normal mb-1" th:text="${payment.order_id}"></td>
+                <td class="fw-normal mb-1" th:text="${payment.payment_total}"></td>
+                <td>
                     <span th:switch="${payment.payment_status}">
-                        <span th:case="'Paid'"><span class="badge badge-danger rounded-pill d-inline" th:text="${payment.payment_status}"></span></span>
-                        <span th:case="'Unpaid'"><span class="badge badge-danger rounded-pill d-inline" th:text="${payment.payment_status}"></span></span>
+                        <span th:case="'Paid'"><span class="badge badge-success rounded-pill d-inline" th:text="${payment.payment_status}"></span></span>
+                        <span th:case="'Pending'"><span class="badge badge-danger rounded-pill d-inline" th:text="${payment.payment_status}"></span></span>
                     </span>
+                </td>
+                <td class="fixed-width">
+                    <form  th:action="@{/deletePayment}" method="post">
+                        <input type="hidden" name="payment_id" th:value="${payment.payment_id}">
+                        <a th:href="@{'edit_payment/' + ${payment.payment_id}}" class="btn btn-primary btn-sm">Edit</a>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    </div>>
+</section>
 
-
-                        <!--                    <td><button type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>-->
-                    </td>
-                </tr>
-                </tbody>
-            </table>
 
 <footer class="ftco-footer ftco-section img">
     <div class="overlay"></div>

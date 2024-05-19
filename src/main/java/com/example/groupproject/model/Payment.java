@@ -26,19 +26,22 @@ public class Payment {
     private double payment_total;
     @Setter
     private Date payment_date;
+    private String payment_method;
 
     //constructor
-    public Payment(int payment_id, int order_id, double total, String status) {
+    public Payment(int payment_id, int order_id, double total, String status, String payment_method) {
         this.payment_id = payment_id;
         this.order_id = order_id;
         this.payment_status = status;
         this.payment_total = total;
+        this.payment_method = payment_method;
     }
 
-    public Payment(int order_id, double total, String status) {
+    public Payment(int order_id, double total, String status, String payment_method) {
         this.order_id = order_id;
         this.payment_status = status;
         this.payment_total = total;
+        this.payment_method = payment_method;
     }
 
     public Payment(int payment_id,int order_id, String payment_status, double payment_total) {
@@ -46,6 +49,15 @@ public class Payment {
         this.order_id = order_id;
         this.payment_status = payment_status;
         this.payment_total = payment_total;
+    }
+
+    public Payment(int payment_id, int order_id, String payment_status, double payment_total, Date payment_date, String payment_method) {
+        this.payment_id = payment_id;
+        this.order_id = order_id;
+        this.payment_status = payment_status;
+        this.payment_total = payment_total;
+        this.payment_date = payment_date;
+        this.payment_method = payment_method;
     }
 
 
@@ -71,6 +83,10 @@ public class Payment {
 
     public Date getPayment_date() {
         return payment_date;
+    }
+
+    public String getPayment_method() {
+        return payment_method;
     }
 
     public void add(Payment payment) {
