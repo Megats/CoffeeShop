@@ -191,6 +191,125 @@ public class CartController {
 
 
     }
+    @PostMapping("/reviewDelete")
+    public String deleteCart(@RequestParam("id") int id) throws SQLException {
+        deleteCarts(id);
+        System.out.println("Id to delete is " + id);
+        return "redirect:/cart";
+    }
+    public void deleteCarts(int id) throws SQLException {
+        // Replace with your connection details
+        String jdbcUrl = DatabaseConfig.JDBC_URL;
+        String username = DatabaseConfig.USERNAME;
+        String password = DatabaseConfig.PASSWORD;
+
+        // Database table and column names (replace as needed)
+        String tableName = "cart";
+        String idCart = "cart_id";  // Assuming deletion based on ID
+
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // Connect to MariaDB
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+            // Prepare SQL statement with placeholder
+            String sql = "DELETE FROM " + tableName + " WHERE " + idCart + " = ?";
+            statement = connection.prepareStatement(sql);
+
+            // Set value for placeholder
+            statement.setInt(1, id);
+
+            // Execute the DELETE statement
+            int rowsAffected = statement.executeUpdate();
+
+            // Check if any rows were deleted
+            if (rowsAffected > 0) {
+                System.out.println("Record deleted successfully!");
+            } else {
+                System.out.println("No records deleted!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources (statement, connection)
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+    }
+//    @PostMapping("/add_status")
+//    public String addStatus(@RequestParam("cart_id") int cart_id){
+//        insertStatus(cart_id);
+//        return "/admin/adminOrder";
+//    }
+//
+//    // Method to update table cart
+//    private void insertStatus(int cart_id) {
+//        String jdbcUrl = DatabaseConfig.JDBC_URL;
+//        String username = DatabaseConfig.USERNAME;
+//        String password = DatabaseConfig.PASSWORD;
+//
+//        // Database table and column
+//        String tableName = "orders";
+//        String cartIdColumn = "cart_id";
+//        String orderStatusColumn = "order_status";
+//
+//        // Data to insert
+//        int cartId =cart_id;
+//        String orderStatus = "Completed";
+//
+//
+//        Connection connection = null;
+//        PreparedStatement preparedStatement = null;
+//
+//        try {
+//
+//            // Connect to db
+//            connection = DriverManager.getConnection(jdbcUrl, username, password);
+//
+//            // Prepare SQL statement with placeholders for data
+//            String sql = "INSERT INTO " + tableName + " (" + cartIdColumn + "," + orderStatusColumn+") VALUES (?,?)";
+//            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//
+//            // Set the value for the placeholder
+//
+//            preparedStatement.setInt(1, cartId);
+//            preparedStatement.setString(2,orderStatus );
+//
+//
+//            //Execute the insert statement
+//            int rowsAffected = preparedStatement.executeUpdate();
+//
+//
+//            if (rowsAffected > 0) {
+//                System.out.println("Record updated successfully!");
+//                System.out.println("Rows affected: " + rowsAffected);
+//            } else {
+//                System.out.println("Record not insert successfully!");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (preparedStatement != null) {
+//                    preparedStatement.close();
+//                }
+//                if (connection != null) {
+//                    connection.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 }
 

@@ -91,8 +91,10 @@
 						    <tbody >
 
 						      <tr th:each="cart, status : ${carts}" class="text-center">
-						        <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-						        
+								  <form th:action="reviewDelete" method="post">
+									  <input type="hidden" th:value="${cart.cart_id}" name="id">
+									  <td class="product-remove"><button style="background: transparent; font-size: 22px" type="submit" value="x"><span class="icon-close"></span></button></td>
+						        </form>
 						        <td class="image-prod"><div class="img" th:style="'background-image: url(\'' + ${#strings.replace(products[status.index].product_image, ' ', '%20')} + '\')'"></div></td>
 						        
 						        <td class="product-name">
@@ -106,11 +108,12 @@
 										  <input type="hidden" th:value="${cart.cart_id}" name="cart_id">
 										  <input type="hidden" th:value="${cart.product_id}" name="product_id">
 										  <input type="hidden" th:value="${products[status.index].product_price}" name="product_price">
-										  <input type="text" th:value="${cart.cart_quantity}" name="cart_quantities" class="quantity form-control input-number" min="1" max="100">
 
 										  <div class="input-group-prepend">
 											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} - 1" style="width: 50px" class="btn btn-outline-secondary decrease-quantity btn-lg">-</button>
 										  </div>
+
+										  <input type="text" th:value="${cart.cart_quantity}" name="cart_quantities" class="quantity form-control input-number" min="1" max="100">
 
 										  <div class="input-group-append">
 											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} + 1"  style="width: 50px" class="btn btn-outline-secondary increase-quantity btn-lg">+</button>
