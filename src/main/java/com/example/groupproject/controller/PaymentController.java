@@ -145,12 +145,12 @@ public class PaymentController {
     public String editPayment(Model model, @PathVariable("id") int id) throws SQLException {
         System.out.println("Id passed in url is: " + id);
 
-        model.addAttribute("product", findbypaymentid(id));
+        model.addAttribute("payment", findbypaymentid(id));
 
         return "admin/edit_payment";
     }
 
-    @PostMapping("admin/payment/{id}")
+    @PostMapping("/edit_payment")
     public String updatePayment(@RequestParam("payment_id") int payment_id,
                                 @RequestParam("payment_status") String payment_status) throws SQLException {
 
