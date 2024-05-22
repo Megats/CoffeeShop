@@ -128,7 +128,6 @@
                             <td class="fixed-width">
                                 <div th:with="someVariable=${review.idPayment}">
                                     <form th:action="reviewDelete" method="post">
-                                    <!--    <a th:href="@{'reviewUpdate/' + ${review.idPayment}}" class="btn btn-warning btn-sm">Update</a>
                                         <input type="hidden" th:value="${someVariable}" name="id">-->
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>

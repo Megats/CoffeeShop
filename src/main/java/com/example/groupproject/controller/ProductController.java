@@ -62,8 +62,8 @@ public class ProductController{
     }
 
     @PostMapping("/add_cart")
-    public String addCart(@RequestParam("product_id") int product_id, @RequestParam("produce_price") double product_price){
-        insertCart(product_id,product_price);
+    public String addCart(@RequestParam("product_id") int product_id, @RequestParam("produce_price") double product_price, @RequestParam("product_name") String product_name){
+        insertCart(product_id,product_price,product_name);
         return "redirect:/menu";
     }
 
@@ -461,7 +461,7 @@ public class ProductController{
 
 
     // Method to update table cart
-    private void insertCart(int id, double product_price){
+    private void insertCart(int id, double product_price, String product_name){
         String jdbcUrl = DatabaseConfig.JDBC_URL;
         String username = DatabaseConfig.USERNAME;
         String password = DatabaseConfig.PASSWORD;
@@ -472,6 +472,7 @@ public class ProductController{
         String productColumn = "product_id";
         String quantityColumn = "cart_quantity";
         String priceColumn = "cart_total";
+        String nameColumn = "product_name";
 
         // Data to insert
         int user_id = 1;
@@ -488,7 +489,7 @@ public class ProductController{
             connection = DriverManager.getConnection(jdbcUrl, username, password);
 
             // Prepare SQL statement with placeholders for data
-            String sql = "INSERT INTO " + tableName + " (" + userColumn + ", " + productColumn + ", " +  quantityColumn + ", " + priceColumn + ")  VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (" + userColumn + ", " + productColumn + ", " +  quantityColumn + ", " + priceColumn + ',' + nameColumn + ")  VALUES (?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // Set the value for the placeholder
@@ -496,7 +497,7 @@ public class ProductController{
             preparedStatement.setInt(2, product_id);
             preparedStatement.setDouble(3, cartQuantity);
             preparedStatement.setDouble(4,  price);
-
+            preparedStatement.setString(5, product_name);
 
             //Execute the insert statement
             int rowsAffected = preparedStatement.executeUpdate();

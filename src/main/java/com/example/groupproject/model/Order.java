@@ -32,6 +32,11 @@ public class Order {
         this.order_total = order_total;
         this.order_status = order_status;
     }
+    public Order(int cart_id, int order_quantity, double order_total) {
+        this.cart_id = cart_id;
+        this.order_total = order_total;
+        this.order_total = order_total;
+    }
 
     public int getUser_id() {
         return user_id;

@@ -35,16 +35,34 @@
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	  <div class="container">
-		  <a class="navbar-brand" href="index">Coffee<small>Blend</small></a>
+		  <a class="navbar-brand" href="index">Cafe<small>Kita</small></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 			  <span class="oi oi-menu"></span> Menu
 		  </button>
+
 		  <div class="collapse navbar-collapse" id="ftco-nav">
 			  <ul class="navbar-nav ml-auto">
-				  <li class="nav-item active"><a href="index" class="nav-link">Home</a></li>
-				  <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
+				  <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
+				  <li class="nav-item active"><a href="menu" class="nav-link">Menu</a></li>
 				  <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
-				  <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
+				  <li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Review</a>
+					  <div class="dropdown-menu" aria-labelledby="profileDropdown">
+						  <a class="dropdown-item" href="reviewInsert">Write Review</a>
+						  <a class="dropdown-item" href="reviewUserDisplay">Review History</a>
+						  <a class="dropdown-item" href="reviewAllDisplay">All Review</a>
+					  </div>
+				  </li>
+				  <li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="profile" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile
+						  <i class="fa fa-user fa-lg"></i>
+					  </a>
+					  <div class="dropdown-menu" aria-labelledby="dropdown04">
+						  <a class="dropdown-item" href="profile">Profile</a>
+						  <a class="dropdown-item" href="users">User List</a>
+						  <a class="dropdown-item" href="/logout">Logout</a>
+					  </div>
+				  </li>
 				  <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
 			  </ul>
 		  </div>
@@ -80,7 +98,6 @@
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>&nbsp;</th>
-						        <th>&nbsp;</th>
 						        <th>Product</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
@@ -88,40 +105,48 @@
 						      </tr>
 						    </thead>
 
-						    <tbody >
+						    <tbody>
 
-						      <tr th:each="cart, status : ${carts}" class="text-center">
-								  <form th:action="reviewDelete" method="post">
-									  <input type="hidden" th:value="${cart.cart_id}" name="id">
+								<tr th:each="cart : ${carts}">
+								  <form th:action="cartDelete" method="post">
+									  <input type="hidden" th:value="${cart.getCart_id()}" name="id">
 									  <td class="product-remove"><button style="background: transparent; font-size: 22px" type="submit" value="x"><span class="icon-close"></span></button></td>
-						        </form>
-						        <td class="image-prod"><div class="img" th:style="'background-image: url(\'' + ${#strings.replace(products[status.index].product_image, ' ', '%20')} + '\')'"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3 th:text="${products[status.index].product_name}">Product name</h3>
-						        </td>
-						        
-						        <td th:text="${products[status.index].product_price}" class="price">$4.90</td>
-								  <form th:action="@{/cart}" method="post">
-								  <td class="quantity">
-									  <div class="input-group mb-3">
-										  <input type="hidden" th:value="${cart.cart_id}" name="cart_id">
-										  <input type="hidden" th:value="${cart.product_id}" name="product_id">
-										  <input type="hidden" th:value="${products[status.index].product_price}" name="product_price">
-
-										  <div class="input-group-prepend">
-											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} - 1" style="width: 50px" class="btn btn-outline-secondary decrease-quantity btn-lg">-</button>
-										  </div>
-
-										  <input type="text" th:value="${cart.cart_quantity}" name="cart_quantities" class="quantity form-control input-number" min="1" max="100">
-
-										  <div class="input-group-append">
-											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} + 1"  style="width: 50px" class="btn btn-outline-secondary increase-quantity btn-lg">+</button>
-										  </div>
-									  </div>
-								  </td>
 								  </form>
-								  <td th:text="'$' + (${products[status.index].product_price * cart.cart_quantity})" class="total">price</td>
+
+						        <td class="product-name">
+						        	<h3 th:text="${cart.getProduct_name()}"></h3>
+						        </td>
+								  <td class="product-price">
+									  <h4 th:text="${cart.cart_total}+'0'">
+								  </td>
+								  <td class="product-quantity">
+									  <h4 th:text="${cart.cart_quantity}">
+								  </td>
+								  <td>
+									  <h4 th:text="'$' + (${cart.cart_total * cart.cart_quantity}) + '0'">
+								  </td>
+						        
+<!--						        <td th:text="${products[status.index].product_price}" class="price">$4.90</td>-->
+<!--								  <form th:action="@{/cart}" method="post">-->
+<!--								  <td class="quantity">-->
+<!--									  <div class="input-group mb-3">-->
+<!--										  <input type="hidden" th:value="${cart.cart_id}" name="cart_id">-->
+<!--										  <input type="hidden" th:value="${cart.product_id}" name="product_id">-->
+<!--										  <input type="hidden" th:value="${products[status.index].product_price}" name="product_price">-->
+
+<!--										  <div class="input-group-prepend">-->
+<!--											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} - 1" style="width: 50px" class="btn btn-outline-secondary decrease-quantity btn-lg">-</button>-->
+<!--										  </div>-->
+
+<!--										  <input type="text" th:value="${cart.cart_quantity}" name="cart_quantities" class="quantity form-control input-number" min="1" max="100">-->
+
+<!--										  <div class="input-group-append">-->
+<!--											  <button type="submit" name="cart_quantity" th:value="${cart.cart_quantity} + 1"  style="width: 50px" class="btn btn-outline-secondary increase-quantity btn-lg">+</button>-->
+<!--										  </div>-->
+<!--									  </div>-->
+<!--								  </td>-->
+								  </form>
+<!--								  <td th:text="'$' + (${products[status.index].product_price * cart.cart_quantity})" class="total">price</td>-->
 							  </tr >
 
 							</tbody>
@@ -133,44 +158,25 @@
     			</div>
     		</div>
 
-				<div  class="row justify-content-end">
-						<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
-							<div class="cart-total mb-3">
-								<h3>Cart Totals</h3>
-								<p class="d-flex">
-									<span>Subtotal</span>
-									<span id="subtotal">$20.60</span>
-								</p>
-								<p class="d-flex">
-									<span>Delivery</span>
-									<span id="delivery">$0.00</span>
-								</p>
-								<p class="d-flex">
-									<span>Discount</span>
-									<span id="discount">$3.00</span>
-								</p>
-								<hr>
-								<p class="d-flex total-price">
-									<span>Total</span>
-									<span id="total">$17.60</span>
-								</p>
-							</div>
-							<div th:with="quantity=${0}">
-								<form th:action="@{/add_order}" method="post">
-									<div th:each="cart : ${carts}">
-										<input type="hidden" th:value="${cart.user_id}" name="user_id">
-										<input type="hidden" th:value="${cart.cart_id}" name="cart_id">
-										<input type="hidden" th:value="${cart.cart_total}" name="order_total">
-										<input type="hidden" th:value="${cart.cart_quantity}" name="order_quantity">
-									</div>
-									<p class="text-center"><input type="submit" class="btn btn-primary py-3 px-4" value="Proceed to checkout"></p>
-								</form>
-							</div>
+				<br>
 
-					</div>
+				<div th:with="totalQuantity=0">
+					<form th:action="@{/add_order}" method="post">
+						<div th:each="cart : ${carts}">
+							<input type="hidden" th:value="${cart.user_id}" name="user_id">
+							<input type="hidden" th:value="${cart.cart_id}" name="cart_id">
+							<input type="hidden" th:value="${cart.cart_total}" name="order_total">
+							<input type="hidden" th:value="${cart.getCart_quantity()}" name="order_quantity">
+							<!-- Increment totalQuantity by order_quantity -->
+						</div>
+						<!-- Place the totalQuantity calculation outside the th:each loop -->
+						<p class="text-center">
+							<button type="submit" class="btn btn-white py-3 px-4">Proceed to Checkout</button>
+						</p>
+					</form>
 				</div>
 
-			</div>
+
 		</section>
 
     <section class="ftco-section">

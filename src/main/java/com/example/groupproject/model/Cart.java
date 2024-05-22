@@ -21,6 +21,7 @@ public class Cart {
     private int product_id;
     private int cart_quantity;
     private double cart_total;
+    private String product_name;
 
 
     //constructor
@@ -30,6 +31,28 @@ public class Cart {
         this.product_id = product_id;
         this.cart_quantity = cart_quantity;
         this.cart_total = cart_total;
+    }
+
+    public Cart(int cart_id,int product_id,int quantity,double total,String product_name) {
+        this.cart_id = cart_id;
+        this.product_id = product_id;
+        this.cart_quantity = quantity;
+        this.cart_total = total;
+        this.product_name = product_name;
+    }
+
+
+    public Cart(int product_id, int cart_quantity, double cart_total) {
+        this.product_id = product_id;
+        this.cart_quantity = cart_quantity;
+        this.cart_total = cart_total;
+    }
+
+    public Cart(int cartId, int productId, int quantity, double total) {
+        this.cart_id = cartId;
+        this.product_id = productId;
+        this.cart_quantity = quantity;
+        this.cart_total = total;
     }
 
     public int getUser_id() {

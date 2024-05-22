@@ -49,8 +49,15 @@ public class PaymentController {
     public String adminPayment(Model model) throws SQLException {
         //get value from implmentation
         List<Payment> payments = retrievePayments();
-        System.out.println("Payment id: " + payments.get(0).getPayment_id());
         model.addAttribute("payments", payments);
+        for(Payment payment : payments){
+            System.out.println("Payment ID: " + payment.getPayment_id());
+            System.out.println("Order ID: " + payment.getOrder_id());
+            System.out.println("Total: " + payment.getPayment_total());
+            System.out.println("Status: " + payment.getPayment_status());
+            System.out.println("Payment Method: " + payment.getPayment_method());
+        }
+
         return "admin/payment"; // This will return the name of your HTML template (e.g., example.html)
     }
 
@@ -135,6 +142,7 @@ public class PaymentController {
         }
     }
 
+
     @PostMapping("/deletePayment")
     public String delete(@RequestParam("payment_id") int payment_id) throws SQLException {
         DeletePayment(payment_id);
@@ -203,16 +211,8 @@ public class PaymentController {
                     //store the value in the model
                     Payment payment = new Payment(payment_id, order_id, total, status, payment_method);
                     payments.add(payment);
-                    System.out.println("id is " + payment.getPayment_id());
-//                    for (Payment p : payments) {
-//                        System.out.println("Payment collection: " + p);
-//                    }
-
-                    System.out.println("Recently Inserted Data:");
-                    System.out.println("ID: " + payment_id + ", PaymentTotal: " + total + ", PaymentStatus: " + status);
-                    System.out.println("Payment: " + payments);
-
                 }
+            return payments;
 
         } catch (SQLException e) {
             e.printStackTrace();

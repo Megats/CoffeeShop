@@ -111,22 +111,21 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light navbar-with-background" id="ftco-navbar">
-
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <div class="col-md-7 heading-section text-center ftco-animate">
-            <a class="navbar-brand" href="index.html">Cafe<small>Kita</small></a>
-        </div>
+        <a class="navbar-brand" href="index.html">Cafe<small>Kita</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
-                <li class="nav-item active"><a href="menu" class="nav-link">Product</a></li>
+                <li class="nav-item active"><a href="product_list" class="nav-link">Product</a></li>
                 <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
-                <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
+                <li class="nav-item"><a href="payment" class="nav-link">Payment</a></li>
+                <li class="nav-item"><a href="reviewAdmin" class="nav-link">Review</a></li>
             </ul>
+
         </div>
     </div>
 </nav>
@@ -183,7 +182,7 @@
                             <script th:inline="javascript">
                                 function confirmDelete(productName) {
                                     console.log("Received product name:", productName); // Debugging statement
-                                    var confirmation = confirm("Are you sure you want to delete " + productName + "?");
+                                    var confirmation = confirm("Are you sure you want to delete" + "?");
                                     return confirmation;
                                 }
 

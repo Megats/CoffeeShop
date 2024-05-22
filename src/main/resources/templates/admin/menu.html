@@ -32,18 +32,19 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index">Coffee<small>Blend</small></a>
+        <a class="navbar-brand" href="index.html">Cafe<small>Kita</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
+                <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="product_list" class="nav-link">Product</a></li>
                 <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
-                <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
-                <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
+                <li class="nav-item"><a href="payment" class="nav-link">Payment</a></li>
+                <li class="nav-item"><a href="reviewAdmin" class="nav-link">Review</a></li>
             </ul>
+
         </div>
     </div>
 </nav>
@@ -87,7 +88,6 @@
                                                 <form th:action="@{/add_cart}" method="post">
                                                     <input type="hidden" th:value="${product.product_id}" name="product_id">
                                                     <input type="hidden" th:value="${product.product_price}" name="produce_price">
-                                                    <!--                                        <a href="#" class="btn btn-primary btn-outline-primary" th:inline="javascript" th:attr="onclick='myFunction(\'' + ${product.product_name} + '\')'">Add to cart</a>-->
                                                     <button type="submit" value="Add to cart" class="btn btn-primary btn-outline-primary">Add to cart</button>
                                                 </form>
                                             </div>

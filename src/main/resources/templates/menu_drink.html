@@ -81,7 +81,12 @@
                                                     <h3 th:text="${product.product_name}"></h3>
                                                     <p th:text="${product.product_description}"></p>
                                                     <p class="price" th:text="'RM'+${product.product_price}+0"></p>
-                                                    <a href="#" class="btn btn-primary btn-outline-primary" th:inline="javascript" th:attr="onclick='myFunction(\'' + ${product.product_name} + '\')'">Add to cart</a>
+                                                    <form th:action="@{/add_cart}" method="post">
+                                                        <input type="hidden" th:value="${product.product_id}" name="product_id">
+                                                        <input type="hidden" th:value="${product.product_name}" name="product_name">
+                                                        <input type="hidden" th:value="${product.product_price}" name="produce_price">
+                                                        <button type="submit" value="Add to cart" class="btn btn-primary btn-outline-primary">Add to cart</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,7 +104,12 @@
                                                 <h3 th:text="${product.product_name}"></h3>
                                                 <p th:text="${product.product_description}"></p>
                                                 <p class="price" th:text="'RM'+${product.product_price}+0"></p>
-                                                <a href="#" class="btn btn-primary btn-outline-primary" th:inline="javascript" th:attr="onclick='myFunction(\'' + ${product.product_name} + '\')'">Add to cart</a>
+                                                <form th:action="@{/add_cart}" method="post">
+                                                    <input type="hidden" th:value="${product.product_id}" name="product_id">
+                                                    <input type="hidden" th:value="${product.product_name}" name="product_name">
+                                                    <input type="hidden" th:value="${product.product_price}" name="produce_price">
+                                                    <button type="submit" value="Add to cart" class="btn btn-primary btn-outline-primary">Add to cart</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

@@ -1,7 +1,21 @@
 package com.example.groupproject.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Data
+@NoArgsConstructor
+//@Builder
+@Entity
+@Table(name = "product")
+
 public class Product {
     //declare variables
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String product_image;
     private int product_id;
     private String product_name;

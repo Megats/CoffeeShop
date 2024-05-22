@@ -1,19 +1,9 @@
 package com.example.groupproject.controller;
 
-import com.example.groupproject.Services.CartService;
-import com.example.groupproject.Services.OrderServices;
-import com.example.groupproject.Services.ProductService;
-import com.example.groupproject.Services.impl.OrderServiceImpl;
 import com.example.groupproject.dbconfig.DatabaseConfig;
-import com.example.groupproject.dto.CartDto;
-import com.example.groupproject.dto.OrderDto;
-import com.example.groupproject.dto.ProductDto;
 import com.example.groupproject.model.Cart;
 import com.example.groupproject.model.Order;
 import com.example.groupproject.model.Product;
-import com.example.groupproject.repository.CartRepository;
-import com.example.groupproject.repository.OrderRepository;
-import com.example.groupproject.repository.ProductRepository;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,61 +21,130 @@ import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
-    private final CartService cartService;
-    private final ProductService productService;
-    private final OrderServices orderServices;
 
-    public OrderController(CartService cartService, ProductService productService, OrderServices orderServices) {
-        this.cartService = cartService;
-        this.productService = productService;
-        this.orderServices = orderServices;
-    }
 
     @GetMapping("/order")
     public String getCartPage(Model model) {
-        List<OrderDto> orders = orderServices.getAllOrders();
-        List<CartDto> carts = new ArrayList<>();
-        List<ProductDto> products = new ArrayList<>();
-
-        for (OrderDto order : orders) {
-            CartDto cartDto = cartService.getCartById(order.getCart_id());
-            carts.add(cartDto);
-            for (CartDto cart : carts) {
-                ProductDto productDto = productService.getProductById(cart.getProduct_id());
-                products.add(productDto);
-            }
-        }
-
-        model.addAttribute("carts", carts);
-        model.addAttribute("orders", orders);
-        model.addAttribute("products", products);
+        model.addAttribute("orders", getOrdersFromDatabase());
         return "order";
     }
     @GetMapping("/adminOrder")
     public String getAdminCartPage(Model model) {
-        List<OrderDto> orders = orderServices.getAllOrders();
-        List<CartDto> carts = new ArrayList<>();
-        List<ProductDto> products = new ArrayList<>();
-
-        for (OrderDto order : orders) {
-            CartDto cartDto = cartService.getCartById(order.getCart_id());
-            carts.add(cartDto);
-            for (CartDto cart : carts) {
-                ProductDto productDto = productService.getProductById(cart.getProduct_id());
-                products.add(productDto);
-            }
-        }
-
-        model.addAttribute("carts", carts);
-        model.addAttribute("orders", orders);
-        model.addAttribute("products", products);
-        return "/admin/adminOrder";
+        return "admin/adminOrder";
     }
     @PostMapping("/add_status")
     public String updateOrderDatabase(@RequestParam("order_id") int order_id)
     {
         updateOrder(order_id);
         return "redirect:/adminOrder";
+    }
+
+    @PostMapping("/add_order")
+    public String addOrder(@RequestParam("cart_id") int cart_id, @RequestParam("order_total") double order_total, @RequestParam("order_quantity") int order_quantity) {
+        Order order = new Order(cart_id, order_quantity, order_total);
+        addOrderToDatabase(order);
+        return "redirect:/checkout";
+    }
+
+    public List<Order> getOrdersFromDatabase() {
+        String jdbcUrl = DatabaseConfig.JDBC_URL;
+        String username = DatabaseConfig.USERNAME;
+        String password = DatabaseConfig.PASSWORD;
+
+        //Database table and column names
+        String tableName = "orders";
+        String orderId = "order_id";
+        String userId = "user_id";
+        String cartId = "cart_id";
+        String orderTotal = "order_total";
+        String orderStatus = "order_status";
+        String orderQuantity = "order_quantity";
+
+        List<Order> orders = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            //Connect to MariaDB
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+            //Create a statement object
+            statement = connection.createStatement();
+            //Execute the SELECT query
+            resultSet = statement.executeQuery("SELECT * FROM " + tableName);
+
+            //Process the results
+            while (resultSet.next()) {
+                int order_id = resultSet.getInt(orderId);
+                int user_id = resultSet.getInt(userId);
+                int cart_id = resultSet.getInt(cartId);
+                int order_quantity = resultSet.getInt(orderQuantity);
+                double order_total = resultSet.getDouble(orderTotal);
+                String order_status = resultSet.getString(orderStatus);
+
+                Order order = new Order(user_id, order_id, cart_id, order_quantity, order_total, order_status);
+                orders.add(order);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    public void addOrderToDatabase(Order order) {
+        String jdbcUrl = DatabaseConfig.JDBC_URL;
+        String username = DatabaseConfig.USERNAME;
+        String password = DatabaseConfig.PASSWORD;
+
+        //Database table and column names
+        String tableName = "orders";
+        String userId = "user_id";
+        String cartId = "cart_id";
+        String orderTotal = "order_total";
+        String orderStatus = "order_status";
+        String orderQuantity = "order_quantity";
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        int user_id = 1;
+        double order_total = order.getOrder_total();
+        String order_status = "pending";
+        int cart_id = order.getCart_id();
+        int quantity = 1;
+
+        try {
+            //Connect to MariaDB
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+            //Create a statement object
+
+            String sql = "INSERT INTO " + tableName + " (" + userId + ", " + cartId + ", " + orderQuantity + ", " +orderTotal + ", " + orderStatus + ") VALUES (?, ?, ?, ?, ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, user_id);
+            statement.setInt(2, cart_id);
+            statement.setInt(3, quantity);
+            statement.setDouble(4, order_total);
+            statement.setString(5, order_status);
+
+            //Execute the INSERT statement
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void updateOrder(int orderId) {

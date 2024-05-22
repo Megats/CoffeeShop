@@ -25,20 +25,22 @@ public class Payment {
     private String payment_status;
     private double payment_total;
     private Date payment_date;
-
+    private String payment_method;
 
     //constructor
-    public Payment(int payment_id, int order_id, double total, String status) {
+    public Payment(int payment_id, int order_id, double total, String status, String payment_method) {
         this.payment_id = payment_id;
         this.order_id = order_id;
         this.payment_status = status;
         this.payment_total = total;
+        this.payment_method = payment_method;
     }
 
-    public Payment(int order_id, double total, String status) {
+    public Payment(int order_id, double total, String status, String payment_method) {
         this.order_id = order_id;
         this.payment_status = status;
         this.payment_total = total;
+        this.payment_method = payment_method;
     }
 
     public Payment(int payment_id,int order_id, String payment_status, double payment_total) {

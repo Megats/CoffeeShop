@@ -40,14 +40,14 @@ public class ReviewController {
     }
 
 //DISPLAY ADMIN
-    @GetMapping("/reviewAdmin")
+    @GetMapping("admin/reviewAdmin")
     public String DisplayReviewAdmin(Model model) throws SQLException {
         // Add data to the model
         model.addAttribute("review", displayReviewAdmin());
         for (Review review : displayReviewAdmin()) {
             System.out.println(review.getIdPayment());
         }
-        return "/reviewAdmin"; // This will return the name of your HTML template (e.g., example.html)
+        return "admin/reviewAdmin"; // This will return the name of your HTML template (e.g., example.html)
     }
 
     @PostMapping("/reviewAdminDelete")
@@ -86,6 +86,15 @@ public class ReviewController {
         System.out.println("Id to delete is " + id);
         return "redirect:/reviewUserDisplay";
     }
+
+
+    @PostMapping("admin/reviewDelete")
+    public String deleteRev(@RequestParam("payment_id") int id) throws SQLException {
+        deleteReview(id);
+        System.out.println("Id to delete is " + id);
+        return "redirect:reviewAdmin";
+    }
+
 
 //UPDATE REVIEW
 

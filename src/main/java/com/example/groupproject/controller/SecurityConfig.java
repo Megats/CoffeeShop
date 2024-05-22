@@ -53,7 +53,6 @@ public class SecurityConfig{
                                 .requestMatchers("/seller/**").hasRole("SELLER")
                                 .anyRequest().authenticated()
 
-
                 )
 
                 .formLogin(formLogin ->
