@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffee - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<style>
+
+    .invoice-container {
+        padding: 1rem;
+    }
+    .invoice-container .invoice-header .invoice-logo {
+        margin: 0.8rem 0 0 0;
+        display: inline-block;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #bcd0f7;
+    }
+    .invoice-container .invoice-header .invoice-logo img {
+        max-width: 130px;
+    }
+    .invoice-container .invoice-header address {
+        font-size: 0.8rem;
+        color: #8a99b5;
+        margin: 0;
+    }
+    .invoice-container .invoice-details {
+        margin: 1rem 0 0 0;
+        padding: 1rem;
+        line-height: 180%;
+        background: #1a233a;
+    }
+    .invoice-container .invoice-details .invoice-num {
+        text-align: right;
+        font-size: 0.8rem;
+    }
+    .invoice-container .invoice-body {
+        padding: 1rem 0 0 0;
+    }
+    .invoice-container .invoice-footer {
+        text-align: center;
+        font-size: 0.7rem;
+        margin: 5px 0 0 0;
+    }
+
+    .invoice-status {
+        text-align: center;
+        padding: 1rem;
+        background: #272e48;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+    .invoice-status h2.status {
+        margin: 0 0 0.8rem 0;
+    }
+    .invoice-status h5.status-title {
+        margin: 0 0 0.8rem 0;
+        color: #8a99b5;
+    }
+    .invoice-status p.status-type {
+        margin: 0.5rem 0 0 0;
+        padding: 0;
+        line-height: 150%;
+    }
+    .invoice-status i {
+        font-size: 1.5rem;
+        margin: 0 0 1rem 0;
+        display: inline-block;
+        padding: 1rem;
+        background: #1a233a;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+    }
+    .invoice-status .badge {
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 767px) {
+        .invoice-container {
+            padding: 1rem;
+        }
+    }
+
+    .card {
+        background: #272E48;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 0;
+        margin-bottom: 1rem;
+    }
+
+    .custom-table {
+        border: 1px solid #2b3958;
+    }
+    .custom-table thead {
+        background: #2f71c1;
+    }
+    .custom-table thead th {
+        border: 0;
+        color: #ffffff;
+    }
+    .custom-table > tbody tr:hover {
+        background: #172033;
+    }
+    .custom-table > tbody tr:nth-of-type(even) {
+        background-color: #1a243a;
+    }
+    .custom-table > tbody td {
+        border: 1px solid #2e3d5f;
+    }
+
+    .table {
+        background: #1a243a;
+        color: #bcd0f7;
+        font-size: .75rem;
+    }
+    .text-success {
+        color: #c0d64a !important;
+    }
+    .custom-actions-btns {
+        margin: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .custom-actions-btns .btn {
+        margin: .3rem 0 .3rem .3rem;
+    }
+
+
+
+    /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+    @media (max-width: 800px) {
+        .row {
+            flex-direction: column-reverse;
+        }
+        .col-25 {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index">Coffee<small>Blend</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="index" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
+                <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
+                <li class="nav-item"><a href="review" class="nav-link">Review</a></li>
+                <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">Checkout</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checout</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
+        <div class="container">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="invoice-container">
+                                <div class="invoice-header">
+                                    <h3>Receipt</h3>
+                                <p style="text-align: right; color: white">Date: 2024-05-20</p>
+                                    <div style="text-align: right;">
+                                        <span class="text-600 text-90">Status:</span> <span class="badge badge-success">Paid</span>
+                                    </div>
+                                <div class="invoice-body">
+
+                                    <!-- Row start -->
+                                    <div class="row gutters">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table custom-table m-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Items</th>
+                                                        <th>Quantity</th>
+                                                        <th>Sub Total</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>
+                                                            Nasi Lemak with Curry Chicken
+                                                            <p class="m-0 text-muted">
+                                                                Consider our flavorful curry chicken alongside our classic nasi lemak 	                                                            </p>
+                                                        </td>
+                                                        <td>1</td>
+                                                        <td>RM12.90</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td colspan="2">
+                                                            <h5 class="text-success"><strong>Grand Total</strong></h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5 class="text-success"><strong>RM12.90</strong></h5>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Row end -->
+
+                                </div>
+
+                                <div class="invoice-footer">
+                                    Thank you for your Business.
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="ftco-footer ftco-section img">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">About Us</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Services</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Cooked</a></li>
+                        <li><a href="#" class="py-2 d-block">Deliver</a></li>
+                        <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
+                        <li><a href="#" class="py-2 d-block">Mixed</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

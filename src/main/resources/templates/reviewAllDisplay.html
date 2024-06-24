@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffee - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+        :root {
+            --primary-color: #e58a48;
+            --primary-color-dark: #fe6769;
+            --text-dark: #ffffff;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+        }
+
+        .container-custom {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .container__left h1 {
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .container__left p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .container__left button {
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--primary-color-dark));
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .container__left button a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .container__right {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .card-custom {
+            padding: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            background-color: var(--white);
+            border-radius: 1rem;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card-custom img {
+            max-width: 75px;
+            border-radius: 100%;
+        }
+
+        .card__content {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .card__content span i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .card__details p {
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .card__details h4 {
+            text-align: right;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .card__details .review-desc {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        @media (max-width: 1200px) {
+            .container-custom {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container-custom {
+                grid-template-columns: 1fr;
+            }
+
+            .container__right {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .container__right {
+                grid-template-columns: 1fr;
+            }
+        }
+        .ri-double-quotes-l {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .rating{
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            margin-bottom: 1rem; /* Add margin if needed */        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index">Cafe<small>Kita</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="menu" class="nav-link">Menu</a></li>
+                <li class="nav-item"><a href="order" class="nav-link">Order</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Review</a>
+                    <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="reviewInsert">Write Review</a>
+                        <a class="dropdown-item" href="reviewUserDisplay">Review History</a>
+                        <a class="dropdown-item" href="reviewAllDisplay">All Review</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="profile" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile
+                        <i class="fa fa-user fa-lg"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="profile">Profile</a>
+                        <a class="dropdown-item" href="users">User List</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+                <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="ftco-menu mb-5 pb-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Feedback</span>
+                <h2 class="mb-4">Customers</h2>
+                <p>Explore the voices of our satisfied customers and see why they choose to partner with us.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="text-center mb-5">
+        <div class="container__left">
+            <h1>Read what our customers love about us</h1>
+            <p>Join the conversation by sharing your experience with our service. Your feedback helps us continuously improve and tailor our offerings to better serve you.</p>
+            <button><a href="reviewInsert">Write review</a></button>
+        </div>
+    </div>
+
+    <div class="container container-custom">
+        <div th:each="review : ${review}" class="container__right">
+        <div class="container__right">
+
+            <!-- Review card example -->
+            <div class="card-custom">
+                <div class="fixed-width">
+                    <div class="card__content">
+<!--                        <span><i class="ri-double-quotes-l"></i></span>-->
+                        <div class="card__details">
+                            <div class="rating" >
+                                <!-- Loop through rating value and display filled star icons -->
+                                <!-- Loop through filled stars -->
+                                <span th:each="i : ${#numbers.sequence(1, review.ratingValue)}">
+                                    <i class="ri-star-fill" style="color: #dfe708"></i>
+                                </span>
+                                <!-- Loop through remaining stars (if rating value is less than 5) and display unfilled star icons -->
+                                <span th:if="${review.ratingValue < 5}">
+                                <span th:each="i : ${#numbers.sequence(review.ratingValue + 1, 5)}">
+                                    <i class="ri-star-line" style="color: #dfe708"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <div th:text="${review.descReview}" class="review-desc"></div>
+                            <h4>- Anonymous</h4>
+                            <div th:text="${review.dateReview}" class="review-date"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more review cards as needed -->
+        </div>
+    </div>
+    </div></section>
+
+<footer class="ftco-footer ftco-section img">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">About Us</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Recent Blog</h2>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Services</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Cooked</a></li>
+                        <li><a href="#" class="py-2 d-block">Deliver</a></li>
+                        <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
+                        <li><a href="#" class="py-2 d-block">Mixed</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>&copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#F96D00"/></svg></div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
