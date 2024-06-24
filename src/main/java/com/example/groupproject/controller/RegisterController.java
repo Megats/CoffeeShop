@@ -4,7 +4,7 @@ package com.example.groupproject.controller;
 import com.example.groupproject.dto.UserDto;
 import com.example.groupproject.entity.User;
 import com.example.groupproject.service.UserService;
-        import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
